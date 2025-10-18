@@ -23,3 +23,11 @@ map("n", "<leader>|", ":vsplit<CR>", opts)
 -- Horizontal split with leader + -
 map("n", "<leader>-", ":split<CR>", opts)
 
+-- DBUI
+map("n", "<leader>db ", ":DBUI<CR>", opts)
+
+-- ToggleTerm
+map("n", "<leader>gem", "<cmd>ToggleTerm id=gemini<CR>", { desc = "Toggle Gemini CLI" })
+
+-- Copilot
+map("n", "<leader>cpt", "lua require(\"copilot.suggestion\").toggle_auto_trigger()\n", { desc = "Toggle Copilot" })

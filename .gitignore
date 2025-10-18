@@ -1,0 +1,13 @@
+# Neovim plugins (managed separately)
+nvim/.config/nvim/pack/
+
+# Vim swap/backup files
+*.swp
+*.swo
+*~
+
+# Rofi cache
+rofi/.cache/
+
+# Temporary files
+*.log

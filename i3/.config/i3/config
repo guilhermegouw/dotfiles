@@ -1,0 +1,207 @@
+# KEYBOARD + FONTS
+set $mod Mod4
+exec_always --no-startup-id setxkbmap us
+# exec --no-startup-id setxkbmap us
+font pango:monospace 8
+
+
+# STARTUP APPLICATIONS
+exec_always --no-startup-id "env QT_QPA_PLATFORMTHEME=qt6ct"
+exec --no-startup-id dex-autostart --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id ~/.config/autostart.sh
+exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id flameshot &
+exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/coffee-shop.png
+exec --no-startup-id /usr/libexec/gsd-xsettings
+exec --no-startup-id wezterm
+exec --no-startup-id obsidian
+exec --no-startup-id google-chrome
+exec --no-startup-id firefox
+exec --no-startup-id dunst
+
+
+# AUDIO CONTROLS
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+
+# NAVIGATION KEYS (VIM)
+set $up k
+set $down j
+set $left h
+set $right l
+
+
+# MOUSE CONTROLS
+floating_modifier Mod1
+tiling_drag modifier titlebar
+
+
+# BASIC COMMANDS
+bindsym Mod1+Return exec wezterm
+bindsym Mod1+Shift+q kill
+# bindsym Mod4+space exec rofi -show drun -theme ~/.config/rofi/launchers/type-3/style-2.rasi
+
+# Rofi - Apps and Files with mode switcher
+bindsym Mod4+space exec --no-startup-id "rofi -modi drun,filebrowser -show drun -show-icons"
+
+
+
+# WINDOW FOCUS
+# VIM STYLE
+bindsym Mod1+$left focus left
+bindsym Mod1+$down focus down
+bindsym Mod1+$up focus up
+bindsym Mod1+$right focus right
+# ARROW KEYS
+bindsym Mod1+Left focus left
+bindsym Mod1+Down focus down
+bindsym Mod1+Up focus up
+bindsym Mod1+Right focus right
+# FOCUS ON PARENT
+bindsym Mod1+a focus parent
+
+
+# WINDOW SETTINGS
+for_window [class="^.*"] border pixel 0
+
+
+# WINDOW MOVEMENT
+# VIM STYLE
+bindsym Mod1+Shift+$left move left
+bindsym Mod1+Shift+$down move down
+bindsym Mod1+Shift+$up move up
+bindsym Mod1+Shift+$right move right
+# ARROW KEYS
+bindsym Mod1+Shift+Left move left
+bindsym Mod1+Shift+Down move down
+bindsym Mod1+Shift+Up move up
+bindsym Mod1+Shift+Right move right
+
+
+# SPLIT WINDOW & FULLSCREEN
+bindsym Mod1+minus split h
+bindsym Mod1+bar split v
+bindsym Mod1+f fullscreen toggle
+
+
+# LAYOUT MODES (Need to understand it later!!!)
+bindsym Mod1+s layout stacking
+bindsym Mod1+w layout tabbed
+bindsym Mod1+e layout toggle split
+bindsym Mod1+Shift+space floating toggle
+bindsym Mod1+space focus mode_toggle
+
+
+# SCRATCHPAD (temporary hidden workspace)
+bindsym Mod1+slash move scratchpad
+bindsym Mod1+backslash scratchpad show
+
+
+# WORKSPACE DEFINITIONS
+# Monitor 1 - eDP-1
+set $ws1 "1:Term"
+set $ws2 "2:Notes"
+set $ws3 "3:Chrome"
+set $ws4 "4:Firefox"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+
+# WINDOW ASSIGNMENTS & STARTUP
+assign [class="WezTerm"] $ws1
+assign [class="obsidian"] $ws2
+assign [class="Google-chrome"] $ws3
+assign [class="org.mozilla.firefox"] $ws4
+assign [class="Navigator"] $ws4
+
+
+# MONITOR ASSIGNMENTS
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output eDP-1
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+workspace $ws7 output eDP-1
+workspace $ws8 output eDP-1
+workspace $ws9 output eDP-1
+workspace $ws10 output eDP-1
+for_window [class="WezTerm"] fullscreen enable
+for_window [class="obsidian"] fullscreen enable
+for_window [class="Google-chrome"] fullscreen enable
+for_window [class="org.mozilla.firefox"] fullscreen enable
+
+# WORKSPACE SWITCHING
+# Workspaces 1-5: Right Alt (Alt Gr) + number
+bindsym Mod1+1 workspace number $ws1
+bindsym Mod1+2 workspace number $ws2
+bindsym Mod1+3 workspace number $ws3
+bindsym Mod1+4 workspace number $ws4
+bindsym Mod1+5 workspace number $ws5
+# Workspaces 6-10: Left Ctrl + number (0 for workspace 10)
+bindsym Control+6 workspace number $ws6
+bindsym Control+7 workspace number $ws7
+bindsym Control+8 workspace number $ws8
+bindsym Control+9 workspace number $ws9
+bindsym Control+0 workspace number $ws10
+
+
+# MOVE WINDOW TO WORKSPACE
+# Workspaces 1-5: Right Alt + Shift + number
+bindsym Alt_R+Shift+1 move container to workspace number $ws1
+bindsym Alt_R+Shift+2 move container to workspace number $ws2
+bindsym Alt_R+Shift+3 move container to workspace number $ws3
+bindsym Alt_R+Shift+4 move container to workspace number $ws4
+bindsym Alt_R+Shift+5 move container to workspace number $ws5
+# Workspaces 6-10: Left Ctrl + Shift + number (0 for workspace 10)
+bindsym Control+Shift+6 move container to workspace number $ws6
+bindsym Control+Shift+7 move container to workspace number $ws7
+bindsym Control+Shift+8 move container to workspace number $ws8
+bindsym Control+Shift+9 move container to workspace number $ws9
+bindsym Control+Shift+0 move container to workspace number $ws10
+
+
+# i3 CONTROLS
+bindsym Mod1+Shift+c reload
+bindsym Mod1+Shift+r restart
+bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+# RESIZE MODE (Controls the resize of panes)
+mode "resize" {
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Mod1+r mode "default"
+}
+
+bindsym Mod1+r mode "resize"
+
+
+# SCREENSHOTS - Scrot (clipboard by default)
+# Select an area to clipboard (interactive selection like GNOME) - DEFAULT
+bindsym Print exec --no-startup-id scrot -s -o /tmp/screenshot.png && xclip -selection clipboard -t image/png < /tmp/screenshot.png
+# Full-screen screenshot to clipboard
+bindsym Shift+Print exec --no-startup-id scrot -o /tmp/screenshot.png && xclip -selection clipboard -t image/png < /tmp/screenshot.png
+# Capture active window to clipboard
+bindsym Ctrl+Print exec --no-startup-id scrot -u -o /tmp/screenshot.png && xclip -selection clipboard -t image/png < /tmp/screenshot.png
+# Save to file instead of clipboard (when you need to keep it)
+bindsym Alt+Print exec --no-startup-id scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H-%M-%S.png
+

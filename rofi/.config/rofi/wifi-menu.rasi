@@ -1,0 +1,158 @@
+@theme "/dev/null"
+
+* {
+    background-color:   #1E1E2E;
+    background-alt:     #313244;
+    text-color:         #CDD6F4;
+    primary:            #8aadf4;
+    secondary:          #89DCEB;
+    urgent:             #F38BA8;
+    font:               "ComicShannsMono Nerd Font Mono 12";
+    accent-color:       #8aadf4;
+}
+
+window {
+    width:              340px;
+    border-radius:      0px;
+    padding:            12px;
+    background-color:   @background-color;
+    location:           center;
+    x-offset:           0;
+    y-offset:           0;
+    border:             1px;
+    border-color:       @background-alt;
+}
+
+/* Prompt styling */
+prompt {
+    enabled:            true;
+    padding:            8px 12px;
+    background-color:   @background-alt;
+    text-color:         @primary;
+    border-radius:      6px;
+    font:               inherit;
+}
+
+/* Input bar for search capability */
+entry {
+    background-color:   @background-alt;
+    text-color:         @text-color;
+    placeholder-color:  @text-color;
+    expand:             true;
+    padding:            8px 12px;
+    border-radius:      6px;
+    margin:             0px 0px 0px 8px;
+}
+
+/* Main container */
+mainbox {
+    children:           [ inputbar, listview, mode-switcher ];
+    background-color:   @background-color;
+    spacing:            12px;
+    padding:            0px;
+}
+
+/* Input bar containing prompt and entry */
+inputbar {
+    children:           [ prompt, entry ];
+    background-color:   transparent;
+    spacing:            0px;
+    margin:             0px 0px 8px 0px;
+}
+
+/* Mode switcher for buttons */
+mode-switcher {
+    background-color:   transparent;
+    margin:             8px 0 0 0;
+}
+
+button {
+    background-color:   #313244;
+    text-color:         #CDD6F4;
+    padding:            8px;
+    margin:             0 4px 0 0;
+    border-radius:      4px;
+}
+
+button selected {
+    background-color:   @accent-color;
+    text-color:         #1E1E2E;
+}
+
+/* List of options */
+listview {
+    background-color:   @background-color;
+    fixed-height:       false;
+    layout:             vertical;
+    dynamic:            true;
+    cycle:              true;
+    margin:             0px;
+    spacing:            6px;
+    scrollbar:          true;
+    lines:              8;
+}
+
+/* Scrollbar styling */
+scrollbar {
+    width:              4px;
+    border:             0;
+    handle-color:       @primary;
+    handle-width:       4px;
+    padding:            0;
+}
+
+/* Individual element styling */
+element {
+    background-color:   transparent;
+    border-radius:      6px;
+    padding:            8px 12px;
+}
+
+element normal.normal {
+    background-color:   transparent;
+    text-color:         @text-color;
+}
+
+element alternate.normal {
+    background-color:   transparent;
+    text-color:         @text-color;
+}
+
+element selected.normal {
+    background-color:   @background-alt;
+    text-color:         @primary;
+    border:             1px;
+    border-color:       @primary;
+    border-radius:      6px;
+}
+
+/* Element icon styling */
+element-icon {
+    background-color:   transparent;
+    text-color:         inherit;
+    size:               1.0em;
+    cursor:             inherit;
+}
+
+/* Element text styling */
+element-text {
+    background-color:   transparent;
+    text-color:         inherit;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+    cursor:             inherit;
+    highlight:          bold;
+}
+
+/* Message styling */
+message {
+    background-color:   @background-alt;
+    border-radius:      6px;
+    padding:            8px;
+    margin:             0px 0px 8px 0px;
+}
+
+textbox {
+    text-color:         @text-color;
+    background-color:   transparent;
+}

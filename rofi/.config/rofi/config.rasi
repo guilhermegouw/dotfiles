@@ -1,0 +1,123 @@
+@theme "/dev/null"
+@import "colors.rasi"
+
+configuration {
+  show-icons: true;
+  drun-icon-theme: "Papirus";
+  icon-size: 1.2em;
+  modi: "drun,run,window,filebrowser";
+  kb-mode-next: "Alt+Tab";
+  kb-mode-previous: "Alt+Shift+Tab";
+  matching: "fuzzy";
+  sort: true;
+  case-sensitive: false;
+  display-drun: "Apps";
+  display-run: "Run";
+  display-window: "Windows";
+  display-filebrowser: "Files";
+  highlight: bold #8aadf4;
+}
+
+* {
+  background-color: #1E1E2E;
+  text-color: #CDD6F4;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+  font: "ComicShannsMono Nerd Font Mono 12";
+  accent-color: #8aadf4;
+}
+
+window {
+  width: 30%;
+  background-color: #1E1E2E;
+  border-radius: 0;
+  padding: 10px;
+}
+
+mainbox {
+  background-color: #1E1E2E;
+  padding: 5px;
+  children: [inputbar, mode-switcher, listview];
+}
+
+inputbar {
+  background-color: #1E1E2E;
+  padding: 8px;
+  margin: 0 0 8px 0;
+  children: [entry];
+  text-color: #CDD6F4;
+}
+
+entry {
+  text-color: #FFFFFF;
+  placeholder: "Type to filter...";
+}
+
+mode-switcher {
+  background-color: transparent;
+  margin: 4px 0 8px 0;
+}
+
+button {
+  background-color: #313244;
+  text-color: #CDD6F4;
+  padding: 6px;
+  margin: 0 4px 0 0;
+  border-radius: 4px;
+}
+
+button selected {
+  background-color: @accent-color;
+  text-color: #1E1E2E;
+}
+
+listview {
+  background-color: #1E1E2E;
+  spacing: 5px;
+  cycle: false;
+  dynamic: true;
+  layout: vertical;
+  scrollbar: true;
+}
+
+scrollbar {
+  width: 4px;
+  border: 0;
+  handle-width: 8px;
+  padding: 0;
+  handle-color: @accent-color;
+  background-color: #313244;
+  border-radius: 2px;
+}
+
+element, element.normal.normal, element.alternate.normal {
+  background-color: transparent;
+  border-radius: 0;
+  padding: 8px;
+  text-color: #CDD6F4;
+}
+
+element selected {
+   background-color: transparent;
+  text-color: #CDD6F4;
+  border: 1px;
+  border-color: @accent-color;
+  border-radius: 4px;
+}
+
+element-icon {
+  background-color: transparent;
+  size: 1.0em;
+  padding: 0 10px 0 0;
+}
+
+element-text {
+  background-color: transparent;
+  vertical-align: 0.5;
+}
+
+element-text selected {
+    text-color: @accent-color;
+}

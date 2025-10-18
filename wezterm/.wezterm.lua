@@ -7,7 +7,7 @@ local leader_active = false
 -- STATUS BAR
 wezterm.on('update-status', function(window)
   local SOLID_LEFT_ROUND = utf8.char(0xe0b6)
-  local date = wezterm.strftime("%Y-%m-%d");
+  local date = wezterm.strftime("%Y-%m-%d")
   local time = wezterm.strftime("%H:%M:%S")
 
   local color_scheme = window:effective_config().resolved_palette
@@ -41,16 +41,31 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   local number_bg = tab.is_active and "#fab387" or "#89b4fa"  -- Orange for active, Blue for inactive
   local number_fg = "#000000"  -- Black text for tab number
 
+  -- Use the user-assigned title if set; otherwise, fall back to the pane's title
+  -- local title = tab.tab_title or tab.active_pane.title
+  local title = tab.tab_title
+  if not title or title == "" then
+    title = tab.active_pane.title
+  end
+
   return {
     { Background = { Color = number_bg } }, { Foreground = { Color = number_fg } }, { Text = " " .. (tab.tab_index + 1) .. " " },
-    { Background = { Color = bg_color } }, { Foreground = { Color = fg_color } }, { Text = " " .. tab.active_pane.title .. " " },
+    { Background = { Color = bg_color } }, { Foreground = { Color = fg_color } }, { Text = " " .. title .. " " },
   }
 end)
 
 return {
   leader = my_leader,
 
-    keys = {
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
+  window_decorations = "NONE",
+
+  keys = {
     {
       key = my_leader.key,
       mods = my_leader.mods,
@@ -62,6 +77,9 @@ return {
       end),
     },
 
+    -- PANES SPLIT
+    { key = "|", mods = "LEADER|SHIFT", action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" } },
+    { key = "-", mods = "LEADER", action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" } },
     -- PANES NAVIGATION
     { key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") }, -- Like `Ctrl + Space, c` in tmux
     { key = "h", mods = "LEADER", action = act.ActivatePaneDirection("Left") }, -- Move left
@@ -85,10 +103,10 @@ return {
     { key = "p", mods = "LEADER", action = act.ActivateTabRelative(-1) },
     { key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
     { key = "r", mods = "LEADER", action = act.PromptInputLine {
-        description = "Rename Tab",
+        description = "Enter new name for tab",
         action = wezterm.action_callback(function(window, pane, line)
           if line then
-            window:active_tab():set_title(line)
+              window:active_tab():set_title(line)
           end
         end),
       }
@@ -97,6 +115,7 @@ return {
     { key = "[", mods = "LEADER", action = act.ActivateCopyMode },
     { key = "]", mods = "LEADER", action = act.PasteFrom("Clipboard") },
     { key = "y", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
+    { key = "Enter", mods = "SHIFT", action = wezterm.action { SendString = "\x1b\r" } },
   },
   mouse_bindings = {
     {
@@ -131,5 +150,11 @@ return {
   enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = false,
   use_fancy_tab_bar = false,
+  initial_cols = 272,
+  initial_rows = 68,
+  adjust_window_size_when_changing_font_size = false,
+  native_macos_fullscreen_mode = false,
+  enable_wayland = false,
+  window_close_confirmation = "NeverPrompt",
 }
 
